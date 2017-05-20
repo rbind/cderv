@@ -34,7 +34,7 @@ theme = "ghostwriter"
     dateFormat = "Mon, Jan 2, 2006"
 
 [Permalinks]
-    post = "/:year/:month/:day/:filename/"
+    post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
     name = "Blog"
