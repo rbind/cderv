@@ -7,6 +7,7 @@ disqusShortname = ""
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = ""
 theme = "ghostwriter"
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
 
 [Author]
     name = "Christophe Dervieux"
