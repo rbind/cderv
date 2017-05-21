@@ -1,6 +1,9 @@
 ---
 title: "A Plain Markdown Post"
 date: "2016-12-30T21:49:57-07:00"
+description: "difference between BlackFriday Markdown and RMarkdown"
+featured: true
+tags: [markdown]
 ---
 
 This is a post written in plain Markdown (`*.md`) instead of R Markdown (`*.Rmd`). The major differences are:
