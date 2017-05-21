@@ -30,7 +30,7 @@ ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
     opengraph = true
     shareTwitter = true
     shareFacebook = true
-    shareGooglePlus = true
+    shareGooglePlus = false
     shareLinkedIn = false
     dateFormat = "Mon, Jan 2, 2006"
 
