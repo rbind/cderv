@@ -9,7 +9,7 @@ experience using R and its ecosystem.
 
 ## Why this blog ? 
 
-I found about R a few years ago when I wanted to manipulate data in another 
+I found about R a few years ago when I wanted to analyze data in another 
 environment than Excel, the only tool my company provided as the time. Since 
 then, I fell in love with the R language, and dive into its community. It is a 
 passion to discover new packages and understand how they work but also how they 
