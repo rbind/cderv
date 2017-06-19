@@ -6,7 +6,7 @@ slug: 'dowload.method'
 description: 'Evolution of default methods'
 categories: [R]
 tags: [R]
-draft: true
+draft: false
 ---
 
 End 2016, Working on a [PR](https://github.com/r-pkgs/remotes/pull/46) for package `remotes` package, I looked into how `download.file` methods evolved with R version, trying to understand how it works depending on the OS or the url type.
