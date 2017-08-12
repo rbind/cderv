@@ -1,0 +1,44 @@
+---
+title: Parsing curl command
+author: Christophe Dervieux
+date: '2017-07-13'
+slug: parsing-curl-command
+categories: []
+tags: []
+draft: true
+description: ''
+---
+
+#' When working with curl command, there is a great helper package call `curlconverter`.
+#' It is on [github](https://github.com/hrbrmstr/curlconverter)
+#' 
+#' It can parse a curl command in a list useable for helping make a request. 
+#' You have to manually use the parsed command for `RCurl` but you can through this package 
+#' create a request for use with `httr` package.
+#' 
+#' Here is how you can do that
+
+# you have to install from github:
+# devtools::install_github("hrbrmstr/curlconverter")# 
+library(curlconverter)
+
+#' I need to change some `"` and ``' to make this work but here is your example curl command
+curl_cmd <- "curl -v -X PUT -H 'X-IBM-Client-Secret:YOUR_CLIENT_SECRET' -H 'X-IBM-Client-Id:YOUR_CLIENT_ID' -H 'Content-Type: application/json' -d '{'clientName': 'The Sample Outdoors Company', 'redirectURIs': 'https://example.com:5443', 'ownerName': 'John Smith', 'ownerEmail': 'John.Smith@example.com', 'ownerCompany': 'example.com', 'ownerPhone': '555-123-4567'}' https://api.ibm.com/watsonanalytics/run/oauth2/v1/config"
+
+#' This command parses the curl command giving you a liste
+straight <- straighten(curl_cmd, quiet = T)
+str(straight)
+
+#' you can generate the right `httr` request to use. It goes into the clipboard 
+#' and return as a function inside a list
+httr_req <- straight %>% make_req()
+
+str(httr_req)
+httr_req
+
+#' you can call this request like that or directly inside `httr::content()`. Do not work here because of the curl example. 
+#+ eval = F
+httr_req[[1]]()
+content(httr_req[[1]]())
+
+#' You can see the help of the package or github README [here](https://github.com/hrbrmstr/curlconverter)
