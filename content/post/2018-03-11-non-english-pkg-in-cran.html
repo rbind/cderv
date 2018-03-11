@@ -1,0 +1,488 @@
+---
+title: Looking for non english package in CRAN
+author: Christophe Dervieux
+date: '2018-03-11'
+description: An experiment of detecting language in DESCRIPTION
+slug: non-english-pkg-in-cran
+categories:
+  - R
+tags:
+  - R
+draft: true
+---
+
+
+
+<p>Trying to figure out how encoding work in 📦 for writing french DESCRIPTION and manual files, I was wondering if others packages on CRAN as been wrote in French or any other non english language.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<div id="looking-into-the-cran-database" class="section level1">
+<h1>Looking into the cran database</h1>
+<p>First, we load the cran database with all information about description fields. We keep only some fields that can helps us look for not english packages. (For a list of all the fields meaning, read <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">Writing R Extensions</a>)</p>
+<pre class="r"><code>to_keep  &lt;- c(&quot;Package&quot;, &quot;Title&quot;, &quot;Description&quot;, &quot;Encoding&quot;, &quot;Language&quot;)
+cran_db &lt;- tools::CRAN_package_db()[to_keep] %&gt;% as_tibble()
+glimpse(cran_db)</code></pre>
+<pre><code>## Observations: 12,294
+## Variables: 5
+## $ Package     &lt;chr&gt; &quot;A3&quot;, &quot;abbyyR&quot;, &quot;abc&quot;, &quot;abc.data&quot;, &quot;ABC.RAP&quot;, &quot;ABC...
+## $ Title       &lt;chr&gt; &quot;Accurate, Adaptable, and Accessible Error Metrics...
+## $ Description &lt;chr&gt; &quot;Supplies tools for tabulating and analyzing the r...
+## $ Encoding    &lt;chr&gt; NA, NA, NA, NA, &quot;UTF-8&quot;, &quot;UTF-8&quot;, NA, &quot;UTF-8&quot;, NA,...
+## $ Language    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...</code></pre>
+<p>Let’s see how many package set their Encoding field in their DESCRIPTION</p>
+<pre class="r"><code>nb_of_na &lt;- cran_db %&gt;% filter(is.na(Encoding)) %&gt;% count(Encoding) %&gt;% pull(n)
+ggplot(cran_db %&gt;% filter(!is.na(Encoding))) +
+  geom_bar(aes(x = Encoding), fill = &quot;skyblue&quot;) +
+  labs(title = &quot;Nb of package with Encoding field&quot;, subtitle = glue::glue(&quot;{nb_of_na} packages with unset Encoding field&quot;)) +
+  theme_light()</code></pre>
+<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Is there any package that uses a Language field in their DESCRIPTION ?</p>
+<pre class="r"><code>nb_of_na &lt;- cran_db %&gt;% filter(is.na(Language)) %&gt;% count(Language) %&gt;% pull(n)
+ggplot(cran_db %&gt;% filter(!is.na(Language))) +
+  geom_bar(aes(x = Language), fill = &quot;skyblue&quot;) +
+  labs(title = &quot;Nb of package with Language field&quot;, subtitle = glue::glue(&quot;{nb_of_na} packages with unset Language field&quot;)) +
+  coord_flip() +
+  theme_light()</code></pre>
+<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>So there are some package that declares their Language field in the DESCRIPTION. These field means:</p>
+<blockquote>
+<p>A ‘Language’ field can be used to indicate if the package documentation is not in English: this should be a comma-separated list of standard (not private use or grandfathered) IETF language tags as currently defined by RFC 5646 (<a href="https://tools.ietf.org/html/rfc5646" class="uri">https://tools.ietf.org/html/rfc5646</a>, see also <a href="https://en.wikipedia.org/wiki/IETF_language_tag" class="uri">https://en.wikipedia.org/wiki/IETF_language_tag</a>), i.e., use language subtags which in essence are 2-letter ISO 639-1 (<a href="https://en.wikipedia.org/wiki/ISO_639-1" class="uri">https://en.wikipedia.org/wiki/ISO_639-1</a>) or 3-letter ISO 639-3 (<a href="https://en.wikipedia.org/wiki/ISO_639-3" class="uri">https://en.wikipedia.org/wiki/ISO_639-3</a>) language codes.</p>
+</blockquote>
+<p>Which are those packages ?</p>
+<pre class="r"><code>cran_db %&gt;%
+  filter(Language == &quot;fr&quot;) %&gt;%
+  pander::pandoc.table(split.tables = Inf)</code></pre>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="31%" />
+<col width="32%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Package</th>
+<th align="center">Title</th>
+<th align="center">Description</th>
+<th align="center">Encoding</th>
+<th align="center">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">LeLogicielR</td>
+<td align="center">Functions and datasets to
+accompany the book “Le
+logiciel R: Maitriser le
+langage, Effectuer des
+analyses statistiques”
+(french)</td>
+<td align="center">This package provides
+functions and datasets for the
+reader of the book “Le
+logiciel R: Maitriser le
+langage, Effectuer des
+analyse statistiques”. The
+documentation and help
+pages are written in french.</td>
+<td align="center">latin1</td>
+<td align="center">fr</td>
+</tr>
+<tr class="even">
+<td align="center">SARP.moodle</td>
+<td align="center">XML Output Functions for Easy
+Creation of Moodle Questions</td>
+<td align="center">Provides a set of basic
+functions for creating Moodle
+XML output files suited for
+importing questions in Moodle
+(a learning management
+system, see
+<a href="https://moodle.org/" class="uri">https://moodle.org/</a> for more
+information).</td>
+<td align="center">UTF-8</td>
+<td align="center">fr</td>
+</tr>
+</tbody>
+</table>
+<p>We see that neither of these packages have their title or description field in
+french. Moreover, one package has UTF8 encoding and the other Latin1.</p>
+<p>So this Language field is not very useful. I am not sure if this field is useful
+for any other purpose than information</p>
+</div>
+<div id="trying-to-detect-languages-of-packages" class="section level1">
+<h1>Trying to detect languages of Packages</h1>
+<p>How can we have some insight on CRAN package language ?</p>
+<p>We can analyse the cran database using the Google’s Compact Language Detector. ROpensci has made 2 wrappers for using it in version 2 (<a href="https://github.com/ropensci/cld2"><code>cld2</code></a>) and version 3 (<a href="https://github.com/ropensci/cld3"><code>cld3</code></a>).</p>
+<p>We will be using the version 2, as <code>cld3</code> is still experimental.</p>
+<pre class="r"><code>cran_db_with_lang &lt;- cran_db %&gt;%
+  mutate(detected = cld2::detect_language(Description, lang_code = FALSE))</code></pre>
+<pre class="r"><code>nb_of_lg_en &lt;- cran_db_with_lang %&gt;% filter(detected == &quot;ENGLISH&quot;) %&gt;% count(detected) %&gt;% pull(n)
+ggplot(cran_db_with_lang %&gt;% filter(detected != &quot;ENGLISH&quot;)) +
+  geom_bar(aes(x = detected), fill = &quot;skyblue&quot;) +
+  labs(title = &quot;Language of packages&quot;, subtitle = glue::glue(&quot;{nb_of_lg_en} packages detected as English&quot;)) +
+  coord_flip() +
+  theme_light()</code></pre>
+<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>There are very few packages that seems to have non english description field.</p>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="19%" />
+<col width="47%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Package</th>
+<th align="center">Title</th>
+<th align="center">Description</th>
+<th align="center">Encoding</th>
+<th align="center">Language</th>
+<th align="center">detected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">confreq</td>
+<td align="center">Configural Frequencies
+Analysis Using Log-Linear
+Modeling</td>
+<td align="center">Offers several functions for
+Configural Frequencies
+Analysis (CFA), which is a
+useful statistical tool for
+the analysis of multiway
+contingency tables. CFA was
+introduced by G. A. Lienert as
+‘Konfigurations Frequenz
+Analyse - KFA’. Lienert, G. A.
+(1971). Die
+Konfigurationsfrequenzanalyse:
+I. Ein neuer Weg zu Typen und
+Syndromen. Zeitschrift
+für Klinische Psychologie und
+Psychotherapie, 19(2), 99–115.</td>
+<td align="center">UTF-8</td>
+<td align="center">NA</td>
+<td align="center">GERMAN</td>
+</tr>
+<tr class="even">
+<td align="center">ElastH</td>
+<td align="center">Replicar metodologia de SPE/MF
+para calculo de elasticidade
+de receita</td>
+<td align="center">O pacote desponibiliza funções
+para estimar modelos de
+componentes não observados
+e determinar intervenções
+automaticamente. Com especial
+atenção para a replicação dos
+modelos utilizados na
+metodologia de calculo do
+resultado estrutural da
+SPE/MF. The package provides
+simple ways to estimates
+general unobserved components
+models and automatically
+detects intervenctions. It is
+specially useful to
+replicate Brazilian Ministry
+of Finance methodology to
+estimate income-output gap
+elasticities.</td>
+<td align="center">UTF-8</td>
+<td align="center">pt_BR</td>
+<td align="center">PORTUGUESE</td>
+</tr>
+<tr class="odd">
+<td align="center">ExpDes.pt</td>
+<td align="center">Pacote Experimental Designs
+(Portuguese)</td>
+<td align="center">Pacote destinado a analise de
+delineamentos experimentais
+simples (DIC, DBC e DQL),
+experimentos em esquema de
+fatorial duplo (em DIC
+e DBC), experimentos em
+esquema de parcelas
+subdivididas no tempo (em DIC
+e DBC), experimentos em
+esquema de fatorial
+duplo com um tratamento
+adicional (em DIC e DBC),
+experimentos em esquema de
+fatorial triplo (em DIC e DBC)
+e experimentos em
+esquema de fatorial triplo com
+um tratamento
+adicional (em DIC e DBC);
+realizando a analise de
+variancia e comparacao
+de medias pelo ajuste de
+modelos de regressao ate o
+terceiro grau (tratamentos
+quantitativos) ou por testes
+de comparacao
+multipla: teste de Tukey,
+teste de
+Student-Newman-Keuls (SNK),
+teste de Scott-Knott, teste de
+Duncan, teste t (LSD),
+teste t de Bonferroni (LSD
+protegido) e teste
+Bootstrap - tratamentos
+qualitativos.</td>
+<td align="center">latin1</td>
+<td align="center">pt</td>
+<td align="center">PORTUGUESE</td>
+</tr>
+<tr class="even">
+<td align="center">labstatR</td>
+<td align="center">Libreria Del Laboratorio Di
+Statistica Con R</td>
+<td align="center">Insieme di funzioni di
+supporto al volume
+“Laboratorio di
+Statistica con R”,
+Iacus-Masarotto, MacGraw-Hill
+Italia, 2006. This
+package contains sets of
+functions defined in
+“Laboratorio di
+Statistica con R”,
+Iacus-Masarotto, MacGraw-Hill
+Italia, 2006. Function
+names and docs are in italian
+as well.</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">ITALIAN</td>
+</tr>
+<tr class="odd">
+<td align="center">LSAmitR</td>
+<td align="center">Daten, Beispiele und
+Funktionen zu ‘Large-Scale
+Assessment mit R’</td>
+<td align="center">Dieses R-Paket stellt
+Zusatzmaterial in Form von
+Daten, Funktionen
+und R-Hilfe-Seiten für den
+Herausgeberband Breit, S. und
+Schreiner, C.
+(Hrsg.). (2016). “Large-Scale
+Assessment mit R: Methodische
+Grundlagen der
+österreichischen
+Bildungsstandardüberprüfung.”
+Wien: facultas.
+(ISBN: 978-3-7089-1343-8,
+<a href="https://www.bifie.at/node/3770" class="uri">https://www.bifie.at/node/3770</a>)
+zur Verfügung.</td>
+<td align="center">UTF-8</td>
+<td align="center">de</td>
+<td align="center">GERMAN</td>
+</tr>
+<tr class="even">
+<td align="center">MFT</td>
+<td align="center">The Multiple Filter Test for
+Change Point Detection</td>
+<td align="center">Provides statistical tests and
+algorithms for the detection
+of change points in time
+series and point processes -
+particularly for changes in
+the mean in time series and
+for changes in the rate and in
+the variance in point
+processes. References -
+Michael Messer, Marietta
+Kirchner, Julia Schiemann,
+Jochen Roeper, Ralph Neininger
+and Gaby Schneider (2014)
+<a href="doi:10.1214/14-AOAS782" class="uri">doi:10.1214/14-AOAS782</a>,
+Stefan Albert, Michael Messer,
+Julia Schiemann, Jochen
+Roeper, Gaby Schneider (2017)
+<a href="doi:10.1111/jtsa.12254" class="uri">doi:10.1111/jtsa.12254</a>,
+Michael Messer, Kaue M. Costa,
+Jochen Roeper and Gaby
+Schneider (2017)
+<a href="doi:10.1007/s10827-016-0635-3" class="uri">doi:10.1007/s10827-016-0635-3</a>.</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">GERMAN</td>
+</tr>
+<tr class="odd">
+<td align="center">orloca.es</td>
+<td align="center">Spanish version of orloca
+package</td>
+<td align="center">Help and demo in Spanish of
+the orloca package. (Ayuda y
+demo en espanol del paquete
+orloca.) Objetos y metodos
+para manejar y resolver el
+problema de localizacion de
+suma minima, tambien conocido
+como problema de Fermat-Weber.
+El problema de localizacion de
+suma minima busca un punto tal
+que la suma ponderada de las
+distancias a los puntos de
+demanda se minimice. Vease
+“The Fermat-Weber location
+problem revisited” por
+Brimberg, Mathematical
+Programming, 1, pag. 71-76,
+1995. &lt;DOI:
+10.1007/BF01592245&gt;. Los
+algoritmos generales de
+optimizacion global se usan
+para resolver el problema,
+junto con el metodo adhoc
+Weiszfeld, ver “Sur le point
+pour lequel la Somme des
+distance de n points donnes
+est minimum”, por Weiszfeld,
+Tohoku Mathematical Journal,
+First Series, 43, pag. .
+355-386, 1937.</td>
+<td align="center">NA</td>
+<td align="center">es</td>
+<td align="center">SPANISH</td>
+</tr>
+<tr class="even">
+<td align="center">praktikum</td>
+<td align="center">Kvantitatiivsete meetodite
+praktikumi asjad / Functions
+used in the course
+“Quantitative methods in
+behavioural sciences”
+(SHPH.00.004), University of
+Tartu</td>
+<td align="center">Kasulikud funktsioonid
+kvantitatiivsete mudelite
+kursuse (SHPH.00.004)
+jaoks</td>
+<td align="center">NA</td>
+<td align="center">et</td>
+<td align="center">ESTONIAN</td>
+</tr>
+<tr class="odd">
+<td align="center">proustr</td>
+<td align="center">Tools for Natural Language
+Processing in French</td>
+<td align="center">Tools for Natural Language
+Processing in French and texts
+from Marcel Proust’s
+collection “A La Recherche
+Du Temps Perdu”. The novels
+contained in this collection
+are “Du cote de chez Swann”, “A l’ombre des jeunes
+filles en fleurs”,“Le Cote de
+Guermantes”, “Sodome et
+Gomorrhe I et II”, “La
+Prisonniere”, “Albertine
+disparue”, and “Le Temps
+retrouve”.</td>
+<td align="center">UTF-8</td>
+<td align="center">NA</td>
+<td align="center">FRENCH</td>
+</tr>
+<tr class="even">
+<td align="center">qha</td>
+<td align="center">Qualitative Harmonic Analysis</td>
+<td align="center">Multivariate description of
+the state changes of a
+qualitative variable by
+Correspondence
+Analysis and Clustering. See:
+Deville, J.C., &amp;
+Saporta, G. (1983).
+Correspondence
+analysis, with an extension
+towards nominal time series.
+Journal of
+econometrics, 22(1-2),
+169-189.
+Corrales, M.L., &amp; Pardo, C.E.
+(2015)
+<a href="doi:10.15332/s2027-3355.2015.0001.01" class="uri">doi:10.15332/s2027-3355.2015.0001.01</a>.
+Analisis de
+datos longitudinales
+cualitativos con analisis de
+correspondencias y
+clasificacion.
+Comunicaciones en
+Estadistica, 8(1), 11-32.</td>
+<td align="center">latin1</td>
+<td align="center">NA</td>
+<td align="center">SPANISH</td>
+</tr>
+<tr class="odd">
+<td align="center">RcmdrPlugin.EACSPIR</td>
+<td align="center">Plugin de R-Commander para el
+Manual ‘EACSPIR’</td>
+<td align="center">Este paquete proporciona una
+interfaz grafica de usuario
+(GUI) para algunos de los
+procedimientos estadisticos
+detallados en un curso de
+‘Estadistica aplicada a las
+Ciencias Sociales mediante el
+programa informatico R’
+(EACSPIR). LA GUI se ha
+desarrollado como un Plugin
+del programa R-Commander.</td>
+<td align="center">NA</td>
+<td align="center">es</td>
+<td align="center">SPANISH</td>
+</tr>
+<tr class="even">
+<td align="center">realestateDK</td>
+<td align="center">A Wrapper for the API of the
+Danish Housing Market
+Statistics</td>
+<td align="center">Provides quarterly information
+on Housing Market Statistics.
+This includes average
+square meter prices and the
+number of free trades for
+parcel and terraced
+houses, condominiums and
+holiday homes in Denmark since
+1992. Visit
+<a href="http://finansdanmark.dk/toerre-tal/boligstatistik/boligmarkedsstatistikken/" class="uri">http://finansdanmark.dk/toerre-tal/boligstatistik/boligmarkedsstatistikken/</a>
+and
+<a href="http://rkr.statistikbank.dk/" class="uri">http://rkr.statistikbank.dk/</a>
+for more information.</td>
+<td align="center">UTF-8</td>
+<td align="center">NA</td>
+<td align="center">DANISH</td>
+</tr>
+<tr class="odd">
+<td align="center">Sofi</td>
+<td align="center">Interfaz interactiva con fines
+didacticos</td>
+<td align="center">Este paquete tiene la
+finalidad de ayudar a aprender
+de una forma interactiva,
+teniendo ejemplos y la
+posibilidad de resolver nuevos
+al mismo tiempo. Apuntes de
+clase interactivos.</td>
+<td align="center">UTF-8</td>
+<td align="center">es</td>
+<td align="center">SPANISH</td>
+</tr>
+</tbody>
+</table>
+<p>The detection by <code>cld2</code> does not seem to be 100% correct.</p>
+<p>However, it helps us isolate some non english packages and it highlights that
+English is the language to go to avoid encoding issues and specific
+configurations in package.
+I will now continue to look into those packages I just found to see if they have
+the same encoding issue as French package… and it seems so !</p>
+</div>

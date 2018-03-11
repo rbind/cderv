@@ -1,0 +1,108 @@
+---
+title: Looking for non english package in CRAN
+author: Christophe Dervieux
+date: '2018-03-11'
+description: An experiment of detecting language in DESCRIPTION
+slug: non-english-pkg-in-cran
+categories:
+  - R
+tags:
+  - R
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Trying to figure out how encoding work in `r emo::ji("package")` for writing french DESCRIPTION and manual files, I was wondering if others packages on CRAN as been wrote in French or any other non english language.
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+# Looking into the cran database
+
+First, we load the cran database with all information about description fields. We keep only some fields that can helps us look for not english packages. (For a list of all the fields meaning, read [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file))
+
+```{r}
+to_keep  <- c("Package", "Title", "Description", "Encoding", "Language")
+cran_db <- tools::CRAN_package_db()[to_keep] %>% as_tibble()
+glimpse(cran_db)
+```
+
+Let's see how many package set their Encoding field in their DESCRIPTION
+
+```{r}
+nb_of_na <- cran_db %>% filter(is.na(Encoding)) %>% count(Encoding) %>% pull(n)
+ggplot(cran_db %>% filter(!is.na(Encoding))) +
+  geom_bar(aes(x = Encoding), fill = "skyblue") +
+  labs(title = "Nb of package with Encoding field", subtitle = glue::glue("{nb_of_na} packages with unset Encoding field")) +
+  theme_light()
+```
+
+Is there any package that uses a Language field in their DESCRIPTION ? 
+
+```{r}
+nb_of_na <- cran_db %>% filter(is.na(Language)) %>% count(Language) %>% pull(n)
+ggplot(cran_db %>% filter(!is.na(Language))) +
+  geom_bar(aes(x = Language), fill = "skyblue") +
+  labs(title = "Nb of package with Language field", subtitle = glue::glue("{nb_of_na} packages with unset Language field")) +
+  coord_flip() +
+  theme_light()
+```
+
+So there are some package that declares their Language field in the DESCRIPTION. These field means: 
+
+> A ‘Language’ field can be used to indicate if the package documentation is not in English: this should be a comma-separated list of standard (not private use or grandfathered) IETF language tags as currently defined by RFC 5646 (https://tools.ietf.org/html/rfc5646, see also https://en.wikipedia.org/wiki/IETF_language_tag), i.e., use language subtags which in essence are 2-letter ISO 639-1 (https://en.wikipedia.org/wiki/ISO_639-1) or 3-letter ISO 639-3 (https://en.wikipedia.org/wiki/ISO_639-3) language codes. 
+
+Which are those packages ? 
+```{r, results='asis'}
+cran_db %>%
+  filter(Language == "fr") %>%
+  pander::pandoc.table(split.tables = Inf)
+```
+
+We see that neither of these packages have their title or description field in
+french. Moreover, one package has UTF8 encoding and the other Latin1.
+
+So this Language field is not very useful. I am not sure if this field is useful
+for any other purpose than information
+
+# Trying to detect languages of Packages
+
+How can we have some insight on CRAN package language ? 
+
+We can analyse the cran database using the Google's Compact Language Detector. ROpensci has made 2 wrappers for using it in version 2 ([`cld2`](https://github.com/ropensci/cld2)) and version 3 ([`cld3`](https://github.com/ropensci/cld3)). 
+
+We will be using the version 2, as `cld3` is still experimental. 
+
+```{r}
+cran_db_with_lang <- cran_db %>%
+  mutate(detected = cld2::detect_language(Description, lang_code = FALSE))
+```
+
+
+```{r}
+nb_of_lg_en <- cran_db_with_lang %>% filter(detected == "ENGLISH") %>% count(detected) %>% pull(n)
+ggplot(cran_db_with_lang %>% filter(detected != "ENGLISH")) +
+  geom_bar(aes(x = detected), fill = "skyblue") +
+  labs(title = "Language of packages", subtitle = glue::glue("{nb_of_lg_en} packages detected as English")) +
+  coord_flip() +
+  theme_light()
+```
+
+There are very few packages that seems to have non english description field.
+```{r, echo = FALSE, results='asis'}
+cran_db_with_lang %>% 
+  filter(detected != "ENGLISH") %>%
+  pander::pandoc.table(split.tables = Inf)
+```
+
+The detection by `cld2` does not seem to be 100% correct. 
+
+However, it helps us isolate some non english packages and it highlights that
+English is the language to go to avoid encoding issues and specific
+configurations in package. 
+I will now continue to look into those packages I just found to see if they have
+the same encoding issue as French package... and it seems so !
