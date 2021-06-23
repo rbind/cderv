@@ -1,0 +1,44 @@
+---
+title: Parsing curl command
+author: Christophe Dervieux
+date: '2017-07-13'
+slug: parsing-curl-command
+categories: []
+tags: []
+draft: true
+description: ''
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>#’ When working with curl command, there is a great helper package call <code>curlconverter</code>.
+#’ It is on <a href="https://github.com/hrbrmstr/curlconverter">github</a>
+#’
+#’ It can parse a curl command in a list useable for helping make a request.
+#’ You have to manually use the parsed command for <code>RCurl</code> but you can through this package
+#’ create a request for use with <code>httr</code> package.
+#’
+#’ Here is how you can do that</p>
+<div id="you-have-to-install-from-github" class="section level1">
+<h1>you have to install from github:</h1>
+</div>
+<div id="devtoolsinstall_githubhrbrmstrcurlconverter" class="section level1">
+<h1>devtools::install_github(“hrbrmstr/curlconverter”)</h1>
+<p>library(curlconverter)</p>
+<p>#’ I need to change some <code>"</code> and ``’ to make this work but here is your example curl command
+curl_cmd &lt;- “curl -v -X PUT -H ‘X-IBM-Client-Secret:YOUR_CLIENT_SECRET’ -H ‘X-IBM-Client-Id:YOUR_CLIENT_ID’ -H ‘Content-Type: application/json’ -d ‘{’clientName’: ‘The Sample Outdoors Company’, ‘redirectURIs’: ‘<a href="https://example.com:5443" class="uri">https://example.com:5443</a>’, ‘ownerName’: ‘John Smith’, ‘ownerEmail’: ‘<a href="mailto:John.Smith@example.com" class="email">John.Smith@example.com</a>’, ‘ownerCompany’: ‘example.com’, ‘ownerPhone’: ‘555-123-4567’}’ <a href="https://api.ibm.com/watsonanalytics/run/oauth2/v1/config" class="uri">https://api.ibm.com/watsonanalytics/run/oauth2/v1/config</a>”</p>
+<p>#’ This command parses the curl command giving you a liste
+straight &lt;- straighten(curl_cmd, quiet = T)
+str(straight)</p>
+<p>#’ you can generate the right <code>httr</code> request to use. It goes into the clipboard
+#’ and return as a function inside a list
+httr_req &lt;- straight %&gt;% make_req()</p>
+<p>str(httr_req)
+httr_req</p>
+<p>#’ you can call this request like that or directly inside <code>httr::content()</code>. Do not work here because of the curl example.
+#+ eval = F
+httr_req<a href="">[1]</a>
+content(httr_req<a href="">[1]</a>)</p>
+<p>#’ You can see the help of the package or github README <a href="https://github.com/hrbrmstr/curlconverter">here</a></p>
+</div>
