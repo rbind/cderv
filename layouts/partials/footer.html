@@ -5,17 +5,13 @@
             <div class="container">
                 <div class="site-title-wrapper">
                     <h1 class="site-title">
-                        <a title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+                        <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
                     </h1>
-                    <a class="button-square button-jump-top js-jump-top" href="#">
-                        <i class="fa fa-angle-up"></i>
+                    <a class="button-square button-jump-top js-jump-top" href="#" aria-label="Back to Top">
+                        <i class="fa fa-angle-up" aria-hidden="true"></i>
                     </a>
                 </div>
-                <center>
-                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-                  <img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
-                </a>
-                </center>
+
                 <p class="footer-copyright">
                     <span>&copy; {{ .Site.LastChange.Format "2006" }} / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
@@ -27,8 +23,13 @@
         </footer>
 
         <script src="{{ .Site.BaseURL }}js/jquery-1.11.3.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
         <script src="{{ .Site.BaseURL }}js/jquery.fitvids.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/languages/r.min.js"></script>
         <script src="{{ .Site.BaseURL }}js/scripts.js"></script>
+        <script>
+          hljs.configure({languages: []});
+          hljs.initHighlightingOnLoad();
+        </script>
     </body>
 </html>
