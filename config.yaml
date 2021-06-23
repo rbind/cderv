@@ -8,9 +8,11 @@ disqusShortname: ''
 googleAnalytics: ''
 theme: ghostwriter
 ignoreFiles:
-  - \.Rmd$
-  - _files$
-  - _cache$
+  - "\\.Rmd$"
+  - "\\.Rmarkdown$"
+  - "\\.knit\\.md$"
+  - "\\.utf8\\.md$"
+  - "_cache$"
 author:
   name: Christophe Dervieux
   profile: ''
@@ -47,6 +49,9 @@ params:
     domain: ""
     # Default value is plausible.io, overwrite this if you are self-hosting or using a custom domain
     serverURL: ""
+
+pygmentsUseClasses: true
+pygmentsCodefences: true
     
 permalinks:
   post: /:year/:month/:day/:slug/
