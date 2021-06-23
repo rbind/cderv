@@ -50,8 +50,9 @@ params:
     # Default value is plausible.io, overwrite this if you are self-hosting or using a custom domain
     serverURL: ""
 
-pygmentsUseClasses: true
-pygmentsCodefences: true
+# chrome highlighting
+pygmentsUseClasses: false
+pygmentsCodefences: false
     
 permalinks:
   post: /:year/:month/:day/:slug/
