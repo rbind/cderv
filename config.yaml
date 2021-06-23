@@ -11,35 +11,78 @@ ignoreFiles:
   - \.Rmd$
   - _files$
   - _cache$
-Author:
+author:
   name: Christophe Dervieux
   profile: ''
-Taxonomies:
+taxonomies:
   tag: tags
-Params:
-  dateFormat: Mon, Jan 2, 2006
-  description: A blog to share tips, tricks & findings about R ecosystem
-  email: christophe.dervieux@gmail.com
-  github: https://github.com/cderv
-  gitlab: ''
-  gplus: ''
+params:
+  mainSections:
+    - post
+  intro: true
   headline: Just another blog
-  intro: yes
-  linkedin: ''
-  opengraph: yes
+  description: A blog to share tips, tricks & findings about R ecosystem
+  github: https://github.com/cderv
+  gitlab: https://gitlab.com/cderv
+  twitter: https://twitter.com/chrisderv
+  linkedin: https://www.linkedin.com/in/cderv/
+  stackoverflow: https://stackoverflow.com/users/3436535/titolondon
+  email: christophe.dervieux@gmail.com
+  opengraph: true
+  shareTwitter: yes
   shareFacebook: yes
   shareGooglePlus: no
   shareLinkedIn: no
-  shareTwitter: yes
-  stackoverflow: https://stackoverflow.com/users/3436535/titolondon
-  twitter: https://twitter.com/chrisderv
-Permalinks:
+  dateFormat: Mon, Jan 2, 2006
+  rss: true
+  exponeaJsUrl: ""
+  exponeaTarget: ""
+  exponeaToken: ""
+  exponeaTrackVisits: false
+  readingTime: true
+  readingTimeText: "Estimated reading time:"
+  fathomUrl: ""
+  fathomSiteId: ""
+  plausibleAnalytics:
+    domain: ""
+    # Default value is plausible.io, overwrite this if you are self-hosting or using a custom domain
+    serverURL: ""
+    
+permalinks:
   post: /:year/:month/:day/:slug/
+  talk: "/talk/:filename/"
+
 menu:
   main:
     - name: Blog
       url: /post/
       weight: 1
-    - name: About
-      url: /about/
+    - name: Talks
+      url: /talk/
       weight: 2
+    - name: About
+      url: /page/about/
+      weight: 3
+
+markup:
+  defaultMarkdownHandler: "goldmark"
+  highlight:
+    codeFences: false
+    guessSyntax: false
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: true
+    tabWidth: 2
+  goldmark:
+    renderer:
+      unsafe: true
+      
+privacy:
+  disqus:
+    disable: true
+  googleAnalytics:
+    anonymizeIP: true
+    respectDoNotTrack: true
+    useSessionStorage: false
