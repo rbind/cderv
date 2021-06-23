@@ -10,7 +10,7 @@ tags:
   - R
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
 <p>Trying to figure out how encoding work in 📦 for writing french DESCRIPTION and manual files, I was wondering if others packages on CRAN as been wrote in French or any other non english language.</p>
@@ -34,7 +34,7 @@ ggplot(cran_db %&gt;% filter(!is.na(Encoding))) +
   geom_bar(aes(x = Encoding), fill = &quot;skyblue&quot;) +
   labs(title = &quot;Nb of package with Encoding field&quot;, subtitle = glue::glue(&quot;{nb_of_na} packages with unset Encoding field&quot;)) +
   theme_light()</code></pre>
-<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Is there any package that uses a Language field in their DESCRIPTION ?</p>
 <pre class="r"><code>nb_of_na &lt;- cran_db %&gt;% filter(is.na(Language)) %&gt;% count(Language) %&gt;% pull(n)
 ggplot(cran_db %&gt;% filter(!is.na(Language))) +
@@ -42,7 +42,7 @@ ggplot(cran_db %&gt;% filter(!is.na(Language))) +
   labs(title = &quot;Nb of package with Language field&quot;, subtitle = glue::glue(&quot;{nb_of_na} packages with unset Language field&quot;)) +
   coord_flip() +
   theme_light()</code></pre>
-<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>So there are some package that declares their Language field in the DESCRIPTION. These field means:</p>
 <blockquote>
 <p>A ‘Language’ field can be used to indicate if the package documentation is not in English: this should be a comma-separated list of standard (not private use or grandfathered) IETF language tags as currently defined by RFC 5646 (<a href="https://tools.ietf.org/html/rfc5646" class="uri">https://tools.ietf.org/html/rfc5646</a>, see also <a href="https://en.wikipedia.org/wiki/IETF_language_tag" class="uri">https://en.wikipedia.org/wiki/IETF_language_tag</a>), i.e., use language subtags which in essence are 2-letter ISO 639-1 (<a href="https://en.wikipedia.org/wiki/ISO_639-1" class="uri">https://en.wikipedia.org/wiki/ISO_639-1</a>) or 3-letter ISO 639-3 (<a href="https://en.wikipedia.org/wiki/ISO_639-3" class="uri">https://en.wikipedia.org/wiki/ISO_639-3</a>) language codes.</p>
@@ -104,7 +104,7 @@ ggplot(cran_db_with_lang %&gt;% filter(detected != &quot;ENGLISH&quot;)) +
   labs(title = &quot;Language of packages&quot;, subtitle = glue::glue(&quot;{nb_of_lg_en} packages detected as English&quot;)) +
   coord_flip() +
   theme_light()</code></pre>
-<p><img src="/post/2018-03-11-non-english-pkg-in-cran_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>There are very few packages that seems to have non english description field.</p>
 <table>
 <colgroup>
