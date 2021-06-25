@@ -13,7 +13,7 @@ description: |
 
 This is now real, I have officially make this blog no more "work in progress". 
 
-I initially created this blog in 2017 to follow a trend on the R community to have a blog. At the time, I was trying to contribute to Open Source on my free time and thought it could be good thing to have my own website. [rbind.io](https://support.rbind.io/about/) organization was also a good opportunity to have a website with a cool url quickly setup: http://cderv.rbind.io was created
+I initially created this blog in 2017 to follow a trend on the R community to have a blog. At the time, I was trying to contribute to Open Source on my free time and thought it could be good thing to have my own website. [rbind.io](https://support.rbind.io/about/) organization was also a good opportunity to have a website with a cool url quickly setup: https://cderv.rbind.io was created
 
 Truth is... 
 
