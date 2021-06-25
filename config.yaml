@@ -67,7 +67,7 @@ menu:
       url: /talk/
       weight: 2
     - name: About
-      url: /page/about/
+      url: /about/
       weight: 3
 
 markup:
