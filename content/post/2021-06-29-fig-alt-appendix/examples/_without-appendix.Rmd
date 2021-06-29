@@ -1,0 +1,27 @@
+---
+title: Retrieving fig.alt in appendix
+output: html_document
+---
+
+# A simple plot
+
+```{r simple-plot, fig.alt = "A simple plot with dots", echo = FALSE}
+plot(1:10)
+```
+
+# Another one
+
+```{r cars-speed, fig.alt = "A plot about cars' stopping speed vs distance", echo = FALSE}
+plot(cars)
+```
+# some other content
+
+```{r}
+1+1
+```
+
+# Appendix
+
+Here are all the alt text set for previous figures
+
+
