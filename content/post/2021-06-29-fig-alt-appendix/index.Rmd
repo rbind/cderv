@@ -69,7 +69,7 @@ pre.yaml + pre.md, pre.yaml + pre.markdown {
 
 We would like to retrieve all the `fig.alt` set at the end of the document as a bullet point list. This can be done using advanced knitr features: 
 
-* `knitr::all_labels()` which allows to retrieve all chunk label in a document. You can find a usage example in the R Markdown Cookbook about how to [Put together all code in the appendix](https://bookdown.org/yihui/rmarkdown-cookbook/code-appendix.html#code-appendix)
+* `knitr::all_labels()` which allows to retrieve all chunk labels in a document. You can find a usage example in the R Markdown Cookbook about how to [Put together all code in the appendix](https://bookdown.org/yihui/rmarkdown-cookbook/code-appendix.html#code-appendix)
 * `knitr::knit_code` which allows to retrieve code content from any chunk using its labels. The object return contains chunk options in attributes. This [post by Emi Tanaka](https://emitanaka.rbind.io/post/knitr-knitr-code/) gives a nice introduction on what this can do. This is a really advanced feature to use with caution. See at leas `?knitr::knit_code` before using it!
 * `result='asis'` and `knitr::knit_expand()` [to generate Rmd source from variable](https://bookdown.org/yihui/rmarkdown-cookbook/knit-expand.html). 
 
