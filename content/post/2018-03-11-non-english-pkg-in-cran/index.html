@@ -21,7 +21,7 @@ tags:
 <pre class="r"><code>to_keep  &lt;- c(&quot;Package&quot;, &quot;Title&quot;, &quot;Description&quot;, &quot;Encoding&quot;, &quot;Language&quot;)
 cran_db &lt;- tools::CRAN_package_db()[to_keep] %&gt;% as_tibble()
 glimpse(cran_db)</code></pre>
-<pre><code>## Rows: 17,781
+<pre><code>## Rows: 17,802
 ## Columns: 5
 ## $ Package     &lt;chr&gt; &quot;A3&quot;, &quot;aaSEA&quot;, &quot;AATtools&quot;, &quot;ABACUS&quot;, &quot;abbyyR&quot;, &quot;abc&quot;, &quot;abc~
 ## $ Title       &lt;chr&gt; &quot;Accurate, Adaptable, and Accessible Error Metrics for Pre~
@@ -110,10 +110,10 @@ ggplot(cran_db_with_lang %&gt;% filter(detected != &quot;ENGLISH&quot;)) +
 <colgroup>
 <col width="10%" />
 <col width="15%" />
-<col width="57%" />
+<col width="58%" />
 <col width="5%" />
 <col width="5%" />
-<col width="6%" />
+<col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -551,6 +551,30 @@ Yontemler”.</td>
 <td align="center">TURKISH</td>
 </tr>
 <tr class="odd">
+<td align="center">MultivariateAnalysis</td>
+<td align="center">Pacote Para Analise
+Multivariada</td>
+<td align="center">Package with multivariate
+analysis methodologies for
+experiment evaluation. The
+package estimates
+dissimilarity measures, builds
+dendrograms, obtains MANOVA,
+principal components,
+canonical variables, etc.
+(Pacote com metodologias de
+analise multivariada para
+avaliação de experimentos. O
+pacote estima medidas de
+dissimilaridade, construi de
+dendogramas, obtem a MANOVA,
+componentes principais,
+variáveis canônicas, etc.)</td>
+<td align="center">UTF-8</td>
+<td align="center">pt-BR</td>
+<td align="center">PORTUGUESE</td>
+</tr>
+<tr class="even">
 <td align="center">MVar.pt</td>
 <td align="center">Analise multivariada
 (brazilian portuguese)</td>
@@ -580,7 +604,7 @@ para a analise multivariada.</td>
 <td align="center">pt_BR</td>
 <td align="center">PORTUGUESE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">orloca.es</td>
 <td align="center">Spanish version of orloca
 package. Modelos de
@@ -627,7 +651,7 @@ Operations Research, 167, pg.
 <td align="center">es</td>
 <td align="center">SPANISH</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">PortalHacienda</td>
 <td align="center">Acceder Con R a Los Datos Del
 Portal De Hacienda</td>
@@ -650,7 +674,7 @@ Hyndman RJ, Khandakar Y
 <td align="center">NA</td>
 <td align="center">SPANISH</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">praktikum</td>
 <td align="center">Kvantitatiivsete meetodite
 praktikumi asjad / Functions
@@ -667,7 +691,7 @@ jaoks</td>
 <td align="center">et</td>
 <td align="center">ESTONIAN</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">proustr</td>
 <td align="center">Tools for Natural Language
 Processing in French</td>
@@ -688,7 +712,7 @@ retrouve”.</td>
 <td align="center">NA</td>
 <td align="center">FRENCH</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">qha</td>
 <td align="center">Qualitative Harmonic Analysis</td>
 <td align="center">Multivariate description of
@@ -718,7 +742,7 @@ Estadistica, 8(1), 11-32.</td>
 <td align="center">NA</td>
 <td align="center">SPANISH</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">qqr</td>
 <td align="center">Data from Brazilian Soccer
 Championship</td>
@@ -731,7 +755,7 @@ found at
 <td align="center">NA</td>
 <td align="center">PORTUGUESE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">Rarefy</td>
 <td align="center">Rarefaction Methods</td>
 <td align="center">Includes functions for the
@@ -768,7 +792,7 @@ Neteler, M., &amp; Chiarucci, A.
 <td align="center">NA</td>
 <td align="center">ITALIAN</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">rasterdiv</td>
 <td align="center">Diversity Indices for
 Numerical Matrices</td>
@@ -787,7 +811,7 @@ Ricotta (2021)
 <td align="center">en-GB</td>
 <td align="center">ITALIAN</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">RcmdrPlugin.EACSPIR</td>
 <td align="center">Plugin de R-Commander para el
 Manual ‘EACSPIR’</td>
@@ -806,7 +830,7 @@ del programa R-Commander.</td>
 <td align="center">es</td>
 <td align="center">SPANISH</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">Sofi</td>
 <td align="center">Interfaz interactiva con fines
 didacticos</td>
@@ -821,7 +845,7 @@ clase interactivos.</td>
 <td align="center">es</td>
 <td align="center">SPANISH</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">SpatialRegimes</td>
 <td align="center">Spatial Constrained
 Clusterwise Regression</td>
@@ -855,6 +879,31 @@ and Postiglione, P. (2017)
 <td align="center">NA</td>
 <td align="center">NA</td>
 <td align="center">ITALIAN</td>
+</tr>
+<tr class="even">
+<td align="center">swissdd</td>
+<td align="center">Get Swiss Federal and Cantonal
+Vote Results from
+Opendata.swiss</td>
+<td align="center">Builds upon the real time data
+service as well as the archive
+for national votes
+<a href="https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen" class="uri">https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-eidgenoessischen-abstimmungsvorlagen</a>
+and cantonal votes
+<a href="https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen" class="uri">https://opendata.swiss/api/3/action/package_show?id=echtzeitdaten-am-abstimmungstag-zu-kantonalen-abstimmungsvorlagen</a>.
+It brings the results of Swiss
+popular votes, aggregated at
+the geographical level of
+choice, into R. Additionally,
+it allows to retrieve data
+from the Swissvotes-Database,
+one of the most comprehensive
+data platforms on Swiss
+referendums and initiatives
+<a href="https://swissvotes.ch/page/dataset/swissvotes_dataset.csv" class="uri">https://swissvotes.ch/page/dataset/swissvotes_dataset.csv</a>.</td>
+<td align="center">UTF-8</td>
+<td align="center">NA</td>
+<td align="center">GERMAN</td>
 </tr>
 <tr class="odd">
 <td align="center">Tratamentos.ad</td>

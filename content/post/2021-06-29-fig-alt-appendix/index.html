@@ -1,0 +1,162 @@
+---
+title: Retrieve all `fig.alt` in a single appendix
+author: C. Dervieux
+date: '2021-06-29'
+slug: fig-alt-appendix
+categories:
+  - R
+tags:
+  - R
+  - knitr
+description: 'Or how to use advanced knitr features to retrieve all chunk options'
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/twitter-widget/widgets.js"></script>
+
+
+<p>Recently, I was pinged on Twitter about a ‘How to’ with <strong>rmarkdown</strong> and <strong>knitr</strong></p>
+<blockquote class="twitter-tweet" align="center" data-width="550" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">Is there an existing function/structure to scrape the alt-text from knitr chunks in an Rmd?<br>I want to collate the descriptions for an appendix for the pdf rendering.<a href="https://twitter.com/hashtag/Rstats?src=hash&amp;ref_src=twsrc%5Etfw">#Rstats</a> <a href="https://twitter.com/rstudio?ref_src=twsrc%5Etfw">@Rstudio</a></p>&mdash; Dr Simonis (they/them) knows what chem weapons are (@JuniperLSimonis) <a href="https://twitter.com/JuniperLSimonis/status/1408886794297307137?ref_src=twsrc%5Etfw">June 26, 2021</a></blockquote>
+
+<blockquote class="twitter-tweet" data-conversation="none" align="center" data-width="550" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">Right, yes, those parts of knitr look very complicated to me! Perhaps <a href="https://twitter.com/apreshill?ref_src=twsrc%5Etfw">@apreshill</a> <a href="https://twitter.com/chrisderv?ref_src=twsrc%5Etfw">@chrisderv</a> and <a href="https://twitter.com/xieyihui?ref_src=twsrc%5Etfw">@xieyihui</a> could guide us on how to make that work for the alt text also.</p>&mdash; Ben Marwick (@benmarwick) <a href="https://twitter.com/benmarwick/status/1408910726580736000?ref_src=twsrc%5Etfw">June 26, 2021</a></blockquote>
+
+<p>The idea is simple:</p>
+<div class="center" style="text-align:center">
+<p>Can we retrieve all alternative texts set with <code>fig.alt</code> chunk option<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> to display them in an appendix at the end of the document ?</p>
+</div>
+<p>There is not a straightforward way but using a few <strong>knitr</strong> tricks, this can be done. Let’s take this small example file:</p>
+<style type="text/css">
+pre.yaml{margin:0px;padding-bottom:0px;border-bottom-style:none}pre.yaml code{padding-bottom:0px}pre.yaml+pre.md,pre.yaml+pre.markdown{border-top-style:none;padding-top:0px}pre.yaml+pre.md code,pre.yaml+pre.markdown code{padding-top:0px}
+</style>
+<pre class="yaml"><code>---
+title: Retrieving fig.alt in appendix
+output: html_document
+---</code></pre>
+<pre class="markdown"><code>
+# A simple plot
+
+```{r simple-plot, fig.alt = &quot;A simple plot with dots&quot;, echo = FALSE}
+plot(1:10)
+```
+
+# Another one
+
+```{r cars-speed, fig.alt = &quot;A plot about cars&#39; stopping speed vs distance&quot;, echo = FALSE}
+plot(cars)
+```
+# some other content
+
+```{r}
+1+1
+```
+
+# Appendix
+
+Here are all the alt text set for previous figures
+
+</code></pre>
+<p>We would like to retrieve all the <code>fig.alt</code> set at the end of the document as a bullet point list. This can be done using advanced knitr features:</p>
+<ul>
+<li><code>knitr::all_labels()</code> which allows to retrieve all chunk label in a document. You can find a usage example in the R Markdown Cookbook about how to <a href="https://bookdown.org/yihui/rmarkdown-cookbook/code-appendix.html#code-appendix">Put together all code in the appendix</a></li>
+<li><code>knitr::knit_code</code> which allows to retrieve code content from any chunk using its labels. The object return contains chunk options in attributes. This <a href="https://emitanaka.rbind.io/post/knitr-knitr-code/">post by Emi Tanaka</a> gives a nice introduction on what this can do. This is a really advanced feature to use with caution. See at leas <code>?knitr::knit_code</code> before using it!</li>
+<li><code>result='asis'</code> and <code>knitr::knit_expand()</code> <a href="https://bookdown.org/yihui/rmarkdown-cookbook/knit-expand.html">to generate Rmd source from variable</a>.</li>
+</ul>
+<p>Putting this together, we would do first</p>
+<ul>
+<li>Retrieve the chunks with a <code>fig.alt</code> labels</li>
+<li>Retrieve the options set on these chunks to get the <code>fig.alt</code> one</li>
+</ul>
+<pre class="r"><code># get all labels from chunk with fig.alt chunk option defined
+chunks_with_alt &lt;- knitr::all_labels(nzchar(fig.alt))
+# Use these labels to retrieve code content 
+chunks_content &lt;- knitr::knit_code$get(chunks_with_alt)
+# retrieve specifically chunk options
+chunks_opts &lt;- lapply(chunks_content, function(x) attr(x, &quot;chunk_opts&quot;))</code></pre>
+<p>Then we would write our markdown content, for example using <code>knitr::knit_expand</code> as templating mechanism. We want something like this in markdown to obtain a list in HTML</p>
+<pre class="markdown"><code>* Figure 1 (chunk label &#39;plot-1): An alt text</code></pre>
+<p>This would be generated by looping on selected chunk option to create these markdown strings.</p>
+<pre class="r"><code># Looping over the selected chunks
+l &lt;- lapply(seq_along(chunks_opts), function(opt_ind) {
+  # We use the index number but we need the option content
+  opt &lt;- chunks_opts[[opt_ind]]
+  knitr::knit_expand(
+    # template string to fill in using index...
+    text = &quot;* Figure {{opt_ind}} (chunk label &#39;{{label}}&#39;): {{alt_text}}&quot;, 
+    # and the alt text set...
+    alt_text = opt$fig.alt,
+    # and the label of the chunk
+    label = opt$label)
+})
+# Using cat() to output the string content to be included as-is.
+cat(unlist(l), sep = &quot;\n&quot;)</code></pre>
+<p>The code above could be included in a single Rmd document like this, using the correct chunk option to hide the code and output the markdown strings as is.</p>
+<pre class="yaml"><code>---
+title: Retrieving fig.alt in appendix
+output: html_document
+---</code></pre>
+<pre class="markdown"><code>
+# A simple plot
+
+```{r simple-plot, fig.alt = &quot;A simple plot with dots&quot;, echo = FALSE}
+plot(1:10)
+```
+
+# Another one
+
+```{r cars-speed, fig.alt = &quot;A plot about cars&#39; stopping speed vs distance&quot;, echo = FALSE}
+plot(cars)
+```
+
+# some other content
+
+```{r}
+1+1
+```
+
+# Appendix
+
+Here are all the alt text set for previous figures
+
+```{r retrieve-chunk-opt, include= FALSE}
+# get all labels from chunk with fig.alt chunk option defined
+chunks_with_alt &lt;- knitr::all_labels(nzchar(fig.alt))
+# Use these labels to retrieve code content 
+chunks_content &lt;- knitr::knit_code$get(chunks_with_alt)
+# retrieve specifically chunk options
+chunks_opts &lt;- lapply(chunks_content, function(x) attr(x, &quot;chunk_opts&quot;))
+```
+
+```{r write-appendix, results=&#39;asis&#39;, echo = FALSE}
+# Looping over the selected chunks
+l &lt;- lapply(seq_along(chunks_opts), function(opt_ind) {
+  # We use the index number but we need the option content
+  opt &lt;- chunks_opts[[opt_ind]]
+  knitr::knit_expand(
+    # template string to fill in using index...
+    text = &quot;* Figure {{opt_ind}} (chunk label &#39;{{label}}&#39;): {{alt_text}}&quot;, 
+    # and the alt text set...
+    alt_text = opt$fig.alt,
+    # and the label of the chunk
+    label = opt$label)
+})
+# Using cat() to output the string content to be included as-is.
+cat(unlist(l), sep = &quot;\n&quot;)
+```
+</code></pre>
+<p>After rendering, the resulting document would look like this</p>
+<p><img src="output.png" title="resulting html document with appendix" alt="resulting html document with appendix" width="400" class='embeded-rmd' /></p>
+<style type="text/css">
+img.embeded-rmd {
+  border-style: solid;
+  border-color: grey;
+}
+</style>
+<img src="https://bookdown.org/yihui/rmarkdown-cookbook/images/cover.png" alt="R Markdown Cookbook cover image" data-external=1 style="width: 20%; padding: 0 15px; margin: 0 0; float: right;"/>
+<p>This is a rather advanced solution using some of the less-known feature of <strong>knitr</strong>. I am sure there could also be another approach using the <a href="https://rundel.github.io/parsermd/"><strong>parsermd</strong></a> by <a href="https://github.com/rundel"><code>@rundel</code></a> which helps you parse a Rmd file, including chunk option. However, that would mean reading the Rmd file during rendering of the same Rmd file… but why not ! I let you try.</p>
+<p>For more recipes about R Markdown, don’t forget to read the <a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a> from which some of the tricks here are based !</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>If you are not familiar with this chunk option, this is a new one added in knitr 1.32 to set alternative text on any figures inside code chunk. More about it on the <a href="https://blog.rstudio.com/2021/04/20/knitr-fig-alt/">This blog post</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
