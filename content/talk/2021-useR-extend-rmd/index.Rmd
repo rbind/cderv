@@ -11,7 +11,9 @@ tags:
   - rmarkdown
 ---
 
-Presentation at useR!2021: 
+```{r, echo = FALSE}
+xaringanExtra::embed_xaringan("https://user2021-enhanced-rmd.netlify.app/")
+```
 
-
+* Online slide: https://cderv.rbind.io/slides/user2021-enhanced-rmd
 

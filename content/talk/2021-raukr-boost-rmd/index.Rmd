@@ -10,9 +10,10 @@ tags:
   - rmarkdown
 ---
 
-* Date: 21 June 20
+```{r, echo = FALSE}
+xaringanExtra::embed_xaringan("https://raukr-boost-rmd-skills.netlify.app/")
+```
 
-* Slides: https://raukr-boost-rmd-skills.netlify.app/
-
+* Online slide: https://cderv.rbind.io/slides/raukr-boost-rmd-skills
 * Event website: https://nbisweden.github.io/workshop-RaukR-2106/
 
