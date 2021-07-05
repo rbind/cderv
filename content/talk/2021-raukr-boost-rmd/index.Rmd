@@ -10,10 +10,10 @@ tags:
   - rmarkdown
 ---
 
+* Online slide: https://cderv.rbind.io/slides/raukr-boost-rmd-skills
+* Event website: https://nbisweden.github.io/workshop-RaukR-2106/
+
 ```{r, echo = FALSE}
 xaringanExtra::embed_xaringan("https://raukr-boost-rmd-skills.netlify.app/")
 ```
-
-* Online slide: https://cderv.rbind.io/slides/raukr-boost-rmd-skills
-* Event website: https://nbisweden.github.io/workshop-RaukR-2106/
 
