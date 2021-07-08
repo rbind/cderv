@@ -4,14 +4,14 @@ description: "A talk about R Markdown Cookbook given online at useR!2021"
 date: '2021-07-08'
 event: useR!2021 - online
 featured: true
-draft: true
+draft: false
 categories:
   - talk
 tags:
   - rmarkdown
 ---
 
-* Online slide: https://cderv.rbind.io/slides/user2021-enhanced-rmd
+* Online slides: https://cderv.rbind.io/slides/user2021-enhanced-rmd
 
 
 ```{r, echo = FALSE}
