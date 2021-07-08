@@ -19,7 +19,4 @@ xaringanExtra::embed_xaringan("https://user2021-enhanced-rmd.netlify.app/")
 
 * Pre-recorded talk:
 
-```{r, echo = FALSE}
-blogdown::shortcode("youtube", id = "Kp68d85849o", title = "Talk at useR!2021 on how to extend R Markdown Document")
-```
-
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Kp68d85849o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
