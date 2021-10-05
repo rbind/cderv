@@ -2,7 +2,7 @@
 title: "Boost Your R Markdown Skills"
 description: "A talk about some recipes of the R Markdown Cookbook given online at raukr 2021"
 date: '2021-06-21'
-featured: true
+featured: false
 event: Raukr 2021 - online
 categories:
   - talk

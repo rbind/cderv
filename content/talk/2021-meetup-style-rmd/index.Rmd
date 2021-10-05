@@ -1,0 +1,22 @@
+---
+title: "Business Reports with R Markdown"
+description: "A talk about theming of reports to fit with graphical guidelines"
+date: '2021-10-05'
+featured: true
+event: R in Enterprise Meetup
+draft: true
+categories:
+  - talk
+tags:
+  - rmarkdown
+  - bslib
+  - theming
+---
+
+* Online slide: https://cderv.rbind.io/slides/meetup-rmd-style-business-report/
+* Event Page: https://www.meetup.com/fr-FR/RStudio-Enterprise-Community-Meetup/events/280078607/
+
+```{r, echo = FALSE}
+xaringanExtra::embed_xaringan("https://meetup-rmd-style-business-report.netlify.app")
+```
+
