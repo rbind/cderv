@@ -13,11 +13,13 @@ tags:
   - theming
 ---
 
-* Online slide: https://cderv.rbind.io/slides/meetup-rmd-style-business-report/
-* Event Page: https://www.meetup.com/fr-FR/RStudio-Enterprise-Community-Meetup/events/280078607/
-* Source Repo: https://github.com/cderv/meetup-2021-rmd-business-report/
+* `r fontawesome::fa('calendar-day')` Event Page: https://www.meetup.com/fr-FR/RStudio-Enterprise-Community-Meetup/events/280078607/
+* `r fontawesome::fa('tv')` Online slide: https://cderv.rbind.io/slides/meetup-rmd-style-business-report/
+* `r fontawesome::fa('video')` Recording: https://www.youtube.com/watch?v=gQ9he9dyfGs
+* `r fontawesome::fa('github')` Source Repo: https://github.com/cderv/meetup-2021-rmd-business-report/
 
 ```{r, echo = FALSE}
 xaringanExtra::embed_xaringan("https://meetup-rmd-style-business-report.netlify.app")
 ```
 
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gQ9he9dyfGs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
