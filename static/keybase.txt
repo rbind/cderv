@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/cderv
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://cderv.rbind.io
+  * I am cderv (https://keybase.io/cderv) on keybase.
+  * I have a public key ASAE8lFNAkDnHi-n8qB7OSMzLrI61m9NU4sNfoKkMjjyYQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012004f2514d0240e71e2fa7f2a07b3923332eb23ad66f4d538b0d7e82a43238f2610a",
+      "host": "keybase.io",
+      "kid": "012004f2514d0240e71e2fa7f2a07b3923332eb23ad66f4d538b0d7e82a43238f2610a",
+      "uid": "506f0d1b34e822e0a8478f19bc90c419",
+      "username": "cderv"
+    },
+    "merkle_root": {
+      "ctime": 1633937174,
+      "hash": "3f74377dc2024f08d3761d837b65052ced5f948c8ce4abf253339369ceec1cd4abd851ad2f3c55df97a9820634a3a7974f8c09bcffdca6042d8f7b0fa4c6c767",
+      "hash_meta": "5f6506d5c363c97aa19ba76bce117c72ce92afb284487a04faf84f30dcc0215e",
+      "seqno": 20957971
+    },
+    "service": {
+      "entropy": "NTiOLjwUJVCKxO+s/X+wxr20",
+      "hostname": "cderv.rbind.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.7.0"
+  },
+  "ctime": 1633937215,
+  "expire_in": 504576000,
+  "prev": "e0e97065bd844ffab7dad9f057382945e48b332037cf3697a45bc20ac6cbf22e",
+  "seqno": 6,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgBPJRTQJA5x4vp/KgezkjMy6yOtZvTVOLDX6CpDI48mEKp3BheWxvYWTESpcCBsQg4OlwZb2ET/q32tnwVzgpReSLMyA3zzaXpFvCCsbL8i7EIAYknYpLAgVShsvHk0e3B2aVuz7X2DoasKO5Bnfd8skqAgHCo3NpZ8RAbBp05u352MVk3xxoAFqRECMhzqUC5nS5j3YCB04MR7Jk19ndQFhwMclYyzCNxSRisXM4/E1EDxzK0/BnRF89CahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIFYPQvC80oCErImpWe+jjWw47ujI68MEE1pDX/aO2er5o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/cderv
+
+==================================================================
