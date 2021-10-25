@@ -77,6 +77,12 @@ keybase pgp export -q <keyid> | Set-Clipboard
 
 And paste it in [github.com/settings/keys](https://github.com/settings/keys) when creating a New GPG key.
 
+### Start GPG agent on Windows startup
+
+`gpg-agent` will be used by Git to sign the commit by opening a window to enter your passphrase. I am not sure why this process does not start on windows startup unfortunately. You'll need to manually add it to startup program. 
+
+Following this resource is easy enough [GPG on Windows - Start the agent on startup](https://gist.github.com/matusnovak/302c7b003043849337f94518a71df777#start-the-agent-on-startup)
+
 ### Resources 
 
 -   [https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/](https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/#fn3)
