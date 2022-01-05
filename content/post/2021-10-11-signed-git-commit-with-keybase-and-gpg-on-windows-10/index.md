@@ -11,7 +11,7 @@ tags:
 description: 'About setting up GPG key to sign Git Commit on Windows 10'
 ---
 
-Signing git commit is something that I have already done in the past following Github Documentation. However, last week I stumble upon Garrick's post "[Signed and verified: signed git commits with Keybase and RStudio](https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/)" which explains how to use Keybase for signing commit for Mac OS. As often, following a tutorial for Windows user is not as easy. This post is about the step I used to make it happen on Windows 10.
+Signing git commit is something that I have already done in the past following Github Documentation. However, last week I stumble upon Garrick's post "[Signed and verified: signed git commits with Keybase and RStudio](https://www.garrickadenbuie.com/blog/signed-verified-git-commits-keybase-rstudio/)" which explains how to use Keybase for signing commit for Mac OS. As often, following a tutorial for Windows user is not as easy. This post is about the step I used to make it happen on Windows 10. It is mainly a resource for my future self but it may be useful to other too. 
 
 ## About the tooling
 
