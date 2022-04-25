@@ -12,7 +12,7 @@ description: 'Or how to use advanced knitr features to retrieve all chunk option
 ---
 
 ```{r setup, include = FALSE}
-# https://github.com/yihui/rmarkdown-cookbook/blob/master/utils.R
+# https://github.com/rstudio/rmarkdown-cookbook/blob/master/utils.R
 import_example <- function(file) {
   x <- xfun::read_utf8(file.path("examples", file))
   x <- rmarkdown:::partition_yaml_front_matter(x)
