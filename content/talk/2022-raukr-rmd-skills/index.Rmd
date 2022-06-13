@@ -1,0 +1,21 @@
+---
+title: "Improve Your Rmd Skills"
+description: "A talk about some updated recipes of the R Markdown Cookbook\ngiven online at raukr 2022"
+date: '2022-06-13'
+featured: true
+draft: false
+event: Raukr 2022 - online
+categories:
+  - talk
+tags:
+  - rmarkdown
+---
+
+* `r fontawesome::fa('calendar-day')` Event website: https://www.scilifelab.se/event/raukr-advanced-r-for-bioinformatics-workshop/
+* `r fontawesome::fa('tv')` Online slide: https://cderv.rbind.io/slides/raukr-2022
+* `r fontawesome::fa('github')` Source: https://github.com/cderv/raukr-2022-rmd-skills
+
+```{r, echo = FALSE}
+xaringanExtra::embed_xaringan("https://raukr-2022-rmd-skills.netlify.app/")
+```
+
