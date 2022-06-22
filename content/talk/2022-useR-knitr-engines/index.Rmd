@@ -1,0 +1,22 @@
+---
+title: "A tour of {knitr} engines: {knitr} not only knits R"
+description: "Well known for its R engine, let's take a tour of other engines one can use to improve its skills on creating R Markdown content"
+date: '2022-06-22'
+featured: true
+draft: false
+event: useR2022 - online
+categories:
+  - talk
+tags:
+  - rmarkdown
+  - knitr
+---
+
+* `r fontawesome::fa('calendar-day')` Event website: https://user2022.r-project.org/
+* `r fontawesome::fa('tv')` Online slide: https://cderv.rbind.io/slides/user2022-knitr-engines/
+* `r fontawesome::fa('github')` Source: https://github.com/cderv/user2022-knitr-engines
+
+```{r, echo = FALSE}
+xaringanExtra::embed_xaringan("https://user2022-knitr-engines.netlify.app/")
+```
+
