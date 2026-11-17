@@ -1,8 +1,21 @@
+# The site moved to https://cderv.dev (November 2026).
+# Netlify applies the first matching rule.
+
+# Talks hosted on their own Netlify sites
 /slides/user2021-enhanced-rmd/*   https://user2021-enhanced-rmd.netlify.app/:splat  301!
 /slides/user2022-knitr-engines/*   https://user2022-knitr-engines.netlify.app/:splat  301!
 /slides/raukr-boost-rmd-skills/*  https://raukr-boost-rmd-skills.netlify.app/:splat 301!
 /slides/raukr-2022/*  https://raukr-2022-rmd-skills.netlify.app/:splat 301!
 /slides/meetup-rmd-style-business-report/*  https://meetup-rmd-style-business-report.netlify.app/:splat 301!
 
-# other presentation should be on this site
-/slides/*                         https://cderv.github.io/presentations/:splat      301!
+# Other decks now live on the new site
+/slides/*  https://cderv.dev/presentations/:splat  301!
+
+# Hugo pages with no direct equivalent
+/post/index.xml  https://cderv.dev/index.xml  301!
+/post/*          https://cderv.dev/  301!
+/categories/*    https://cderv.dev/  301!
+/tags/*          https://cderv.dev/  301!
+
+# Everything else keeps its path: old post, talk and about URLs are aliases on cderv.dev
+/*  https://cderv.dev/:splat  301!
