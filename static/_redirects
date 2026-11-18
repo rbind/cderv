@@ -1,6 +1,9 @@
 # The site moved to https://cderv.dev (November 2026).
 # Netlify applies the first matching rule.
 
+# Keybase proof for cderv.rbind.io: serve the file, do not redirect it
+/keybase.txt  /keybase.txt  200!
+
 # Talks hosted on their own Netlify sites
 /slides/user2021-enhanced-rmd/*   https://user2021-enhanced-rmd.netlify.app/:splat  301!
 /slides/user2022-knitr-engines/*   https://user2022-knitr-engines.netlify.app/:splat  301!
